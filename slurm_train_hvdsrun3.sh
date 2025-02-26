@@ -5,8 +5,8 @@
 #SBATCH --gpus-per-node=v100l:1
 
 #SBATCH --cpus-per-gpu=8  # 8*4 :There are 32 CPU cores on V100 Cedar GPU nodes
-#SBATCH --mem=24G   # Request the full memory of the node use 0 for full
-#SBATCH --time=10:00:00
+#SBATCH --mem=48G   # Request the full memory of the node use 0 for full
+#SBATCH --time=20:00:00
 #SBATCH --wait-all-nodes=1
 
 #SBATCH --output=%N-%j.out 
@@ -25,5 +25,5 @@ export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CUDA_HOME
 
 #srun slurm_launch_train.sh
 srun bash -c "source $SLURM_TMPDIR/env/bin/activate;\
-python ./train_hvd_data_pipeline.py --model resnet50 --epochs 20  --batch 64 -n 2\
+python ./train_hvd_data_pipeline.py --model vgg16 --epochs 20  --batch 64 -n 2\
  --lr 0.0000025  --seed 99"   

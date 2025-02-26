@@ -188,7 +188,7 @@ if hvd.rank() == 0:
     callbacks.append(keras.callbacks.ModelCheckpoint(filepath=checkpoint_dir + "/ckpt-{epoch}", save_freq="epoch"))
 
 
-    run = wandb.init(project="IMAGENET_Nparams_Experiments", entity="geometric_init",
+    run = wandb.init(project="IMAGENET_Nparams_Experiments_VGG16", entity="geometric_init",
                             # track hyperparameters and run metadata
                         config={
                         "Batch_size": batch,
@@ -243,9 +243,10 @@ trainDS = (trainDS
     .shard(num_shards=hvd.size(), index=hvd.rank())
 	.map(load_images, num_parallel_calls=tf.data.AUTOTUNE)
 	.map(train_preprocess, num_parallel_calls=tf.data.AUTOTUNE)
-    .repeat() #
 	.batch(args.batch, drop_remainder=True)
-	.prefetch(1) #tf.data.AUTOTUNE)
+	.prefetch(tf.data.AUTOTUNE)
+    .repeat() #
+
 )
 
 val_preprocess = Preprocessing(val=True).preprocess
@@ -255,9 +256,9 @@ valDS = (valDS
     .cache()
 	.map(load_images, num_parallel_calls=tf.data.AUTOTUNE)
 	.map(val_preprocess, num_parallel_calls=tf.data.AUTOTUNE)
-    .repeat() #
 	.batch(args.batch, drop_remainder=True)
-	.prefetch(1) #tf.data.AUTOTUNE)
+	.prefetch(tf.data.AUTOTUNE)
+    .repeat() #
 )
 
 '''if hvd.rank() == 0:
