@@ -12,7 +12,6 @@ from tensorflow.image import flip_up_down, flip_left_right, rot90
 from tensorflow.linalg import normalize
 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-import tensorflow_probability as tfp
 from scipy import ndimage, fft
 
 import math

@@ -1,20 +1,23 @@
 #!/bin/bash
 
-module load StdEnv/2020
-module load python/3.10
-virtualenv --no-download $SLURM_TMPDIR/env
-source $SLURM_TMPDIR/env/bin/activate
+
+#virtualenv --no-download /env
+python3 -m venv env
+source env/bin/activate
 
 
 
-pip install --no-index --upgrade pip
-pip install --no-index -r requirements.txt --verbose
+pip3 install  --upgrade pip
+pip install nvidia-cudnn-cu11==8.6.* --extra-index-url https://download.pytorch.org/whl/cu118
+
+python3 -m pip install 'tensorflow[and-cuda]==2.11.0'
+
+pip3 install  -r requirements.txt --verbose
+
 
 #pip install --no-index horovod==0.28.0  --verbose 
 #pip install numpy==1.22.0
 
-
-pip install --no-index horovod==0.28.1
 
 
 #cp -R ~/scratch/$USERS/ILSVRC2012_img_train $SLURM_TMPDIR
