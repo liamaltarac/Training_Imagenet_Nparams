@@ -26,7 +26,7 @@ export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CUDA_HOME
 #srun slurm_launch_train.sh
 source env/bin/activate
 
-python3 ./train_no_hvd.py --model vgg16 --epochs 8  --batch 64 -n 1 --lr 0.0000025 --seed 99 --start_from 6
+#python3 ./train_no_hvd.py --model vgg16 --epochs 8  --batch 64 -n 1 --lr 0.0000025 --seed 99 --start_from 6
 python3 ./train_no_hvd.py --model vgg16 --epochs 8  --batch 64 -n 3 --lr 0.0000025 --seed 99
-python3 ./train_no_hvd.py --model vgg16 --epochs 8  --batch 64 -n 4 --lr 0.0000025 --seed 99
-python3 ./train_no_hvd.py --model vgg16 --epochs 8  --batch 64 -n 5 --lr 0.0000025 --seed 99
+#python3 ./train_no_hvd.py --model vgg16 --epochs 8  --batch 64 -n 4 --lr 0.0000025 --seed 99
+#python3 ./train_no_hvd.py --model vgg16 --epochs 8  --batch 64 -n 5 --lr 0.0000025 --seed 99
